@@ -3,225 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Trash to Treasure - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Reusing the same styles from signup page for consistency */
-        .form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-width: 350px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 20px;
-            position: relative;
-            margin: auto;
-            margin-top: 50px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        .title {
-            font-size: 28px;
-            color: royalblue;
-            font-weight: 600;
-            letter-spacing: -1px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            padding-left: 30px;
+        body {
+            background: #1a1a1a;
+            color: #ffffff;
+            line-height: 1.6;
         }
 
-        .title::before, .title::after {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            border-radius: 50%;
-            left: 0px;
-            background-color: royalblue;
-        }
-
-        .title::before {
-            width: 18px;
-            height: 18px;
-            background-color: royalblue;
-        }
-
-        .title::after {
-            width: 18px;
-            height: 18px;
-            animation: pulse 1s linear infinite;
-        }
-
-        .message, .signin {
-            color: rgba(88, 87, 87, 0.822);
-            font-size: 14px;
-        }
-
-        .signin {
-            text-align: center;
-        }
-
-        .signin a {
-            color: royalblue;
-            cursor: pointer;
-        }
-
-        .signin a:hover {
-            text-decoration: underline royalblue;
-        }
-
-        .form label {
-            position: relative;
-        }
-
-        .form label .input {
+        header {
+            background: #0d0d0d;
+            padding: 15px 30px;
+            position: fixed;
             width: 100%;
-            padding: 10px 10px 20px 10px;
-            outline: 0;
-            border: 1px solid rgba(105, 105, 105, 0.397);
-            border-radius: 10px;
+            top: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .form label .input + span {
-            position: absolute;
-            left: 10px;
-            top: 15px;
-            color: grey;
-            font-size: 0.9em;
-            cursor: text;
-            transition: 0.3s ease;
+        header h1 {
+            font-size: 28px;
+            color: #ffffff;
         }
 
-        .form label .input:placeholder-shown + span {
-            top: 15px;
-            font-size: 0.9em;
+        nav a {
+            color: #b0bec5;
+            margin-left: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
 
-        .form label .input:focus + span, .form label .input:valid + span {
-            top: 30px;
-            font-size: 0.7em;
-            font-weight: 600;
+        nav a:hover {
+            color: #ffffff;
+        }
+
+        .section {
+            display: none;
+            padding: 100px 30px;
+            min-height: 100vh;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
+            position: relative;
+        }
+
+        .section.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .form-container {
+            background: #2c2c2c;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            background: #3d3d3d;
+            color: #ffffff;
+            border-radius: 6px;
+            font-size: 16px;
         }
 
         .submit {
+            background: linear-gradient(45deg, #ff4081, #f50057);
+            color: #ffffff;
+            padding: 12px 25px;
             border: none;
-            outline: none;
-            background-color: royalblue;
-            padding: 10px;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 16px;
-            transition: .3s ease;
+            border-radius: 6px;
             cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .submit:hover {
-            background-color: rgb(56, 90, 194);
-        }
-
-        .social-login {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        .social-login button {
-            border: none;
-            outline: none;
-            padding: 10px;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 16px;
-            transition: .3s ease;
-            cursor: pointer;
-            flex: 1;
-            margin: 0 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .google { background-color: #db4437; }
-        .github { background-color: #333; }
-        .instagram { background-color: #e4405f; }
-
-        .google:hover { background-color: #c23321; }
-        .github:hover { background-color: #24292e; }
-        .instagram:hover { background-color: #d32f50; }
-
-        @keyframes pulse {
-            from {
-                transform: scale(0.9);
-                opacity: 1;
-            }
-            to {
-                transform: scale(1.8);
-                opacity: 0;
-            }
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
         }
     </style>
-    <script>
-        function login() {
-            const username = document.getElementById("login-username").value;
-            const password = document.getElementById("login-password").value;
-            const storedUsername = localStorage.getItem("user");
-
-            if (!username || !password) {
-                alert("Please enter both username and password.");
-                return;
-            }
-
-            if (username === storedUsername) {
-                alert("Login successful! Redirecting to dashboard...");
-                window.location.href = "dashboard.html"; // Redirect to dashboard
-            } else {
-                alert("Invalid username or password!");
-            }
-        }
-
-        function redirectToSignup() {
-            window.location.href = "signup.html"; // Redirect to signup page
-        }
-
-        function loginWithGoogle() {
-            window.location.href = "https://accounts.google.com/signin"; // Redirect to Google login page
-        }
-
-        function loginWithGithub() {
-            window.location.href = "https://github.com/login"; // Redirect to GitHub login page
-        }
-
-        function loginWithInstagram() {
-            window.location.href = "https://www.instagram.com/accounts/login/"; // Redirect to Instagram login page
-        }
-    </script>
 </head>
 <body>
-    <form class="form">
-        <p class="title">Login</p>
-        <p class="message">Welcome back! Please log in to continue.</p>
-        
-        <label>
-            <input type="text" class="input" id="login-username" placeholder=" " required>
-            <span>Username</span>
-        </label>
+    <header>
+        <h1>Trash to Treasure</h1>
+        <nav>
+            <a href="login.html">Login</a>
+            <a href="signup.html">Signup</a>
+            <a href="home.html">Home</a>
+            <a href="profile.html">Profile</a>
+            <a href="history.html">History</a>
+            <a href="about.html">About</a>
+        </nav>
+    </header>
 
-        <label>
-            <input type="password" class="input" id="login-password" placeholder=" " required>
-            <span>Password</span>
-        </label>
-
-        <button type="button" class="submit" onclick="login()">Login</button>
-
-        <div class="social-login">
-            <button type="button" class="google" onclick="loginWithGoogle()"><i class="fab fa-google"></i></button>
-            <button type="button" class="github" onclick="loginWithGithub()"><i class="fab fa-github"></i></button>
-            <button type="button" class="instagram" onclick="loginWithInstagram()"><i class="fab fa-instagram"></i></button>
+    <div id="login" class="section active">
+        <div class="form-container">
+            <h2>Login</h2>
+            <input type="email" placeholder="Email" id="loginUsername" class="input">
+            <input type="password" placeholder="Password" id="loginPassword" class="input">
+            <button type="submit" class="submit" onclick="login()">Login</button>
         </div>
-        
-        <p class="signin">Don't have an account? <a onclick="redirectToSignup()">Sign Up</a></p>
-    </form>
+    </div>
+
+    <script>
+        function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            if (username && password) {
+                alert('Logged in successfully!');
+                window.location.href = 'home.html';
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+    </script>
 </body>
 </html>
