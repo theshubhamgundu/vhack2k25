@@ -3,71 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
+    <title>Trash to Treasure - About</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, sans-serif;
+        /* Shared header styles */
+        body { background: #1a1a1a; color: #ffffff; line-height: 1.6; font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; }
+        header { background: rgba(0, 0, 0, 0.8); padding: 15px 20px; text-align: center; }
+        header h1 { margin: 0; font-size: 24px; }
+        nav { margin-top: 10px; }
+        nav a { color: #ffffff; text-decoration: none; margin: 0 10px; font-weight: 500; }
+        nav a:hover { text-decoration: underline; }
+
+        /* About section styles */
+        .section {
+            display: none;
+            padding: 80px 30px;
+            min-height: 100vh;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            background: url('https://images.unsplash.com/photo-1504320523143-dac796c2cadd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
+            position: relative;
             text-align: center;
-            background-color: #000;
-            color: white;
-            overflow: hidden;
         }
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            z-index: -1;
-        }
-        .container {
-            width: 60%;
-            margin: 100px auto;
-            background: rgba(255, 255, 255, 0.1);
+
+        .section.active { display: block; opacity: 1; }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.7);
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
+            border-radius: 12px;
         }
-        h1 {
-            color: red;
+
+        .about-content h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.8s ease;
         }
-        p {
+
+        .section.active h2 { opacity: 1; transform: translateY(0); }
+
+        .about-content p {
             font-size: 18px;
-            line-height: 1.6;
-            margin-top: 20px;
+            margin-bottom: 15px;
+            opacity: 0;
+            transition: all 0.8s ease 0.3s;
         }
+
+        .section.active .about-content p { opacity: 1; }
+
+        .about-content img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 12px;
+            margin: 20px 0;
+            transition: transform 0.3s ease;
+        }
+
+        .about-content img:hover { transform: scale(1.05); }
     </style>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        window.onload = function () {
-            particlesJS('particles-js', {
-                "particles": {
-                    "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-                    "color": { "value": "#ff0000" },
-                    "shape": { "type": "circle" },
-                    "opacity": { "value": 0.5 },
-                    "size": { "value": 3 },
-                    "move": { "enable": true, "speed": 5 }
-                },
-                "interactivity": {
-                    "events": {
-                        "onhover": { "enable": true, "mode": "repulse" }
-                    }
-                }
-            });
-        };
-    </script>
 </head>
 <body>
-    <div id="particles-js"></div>
-    <div class="container">
-        <h1>About Us</h1>
-        <p>Welcome to our platform! Our goal is to provide a seamless and secure experience for managing blockchain-based health records. 
-        Our system ensures data security, privacy, and interoperability between hospital systems while empowering patients with control over their information.</p>
+    <header>
+        <h1>Trash to Treasure</h1>
+        <nav>
+            <a href="login.html">Login</a>
+            <a href="signup.html">Signup</a>
+            <a href="home.html">Home</a>
+            <a href="profile.html">Profile</a>
+            <a href="history.html">History</a>
+            <a href="about.html">About</a>
+        </nav>
+    </header>
+
+    <div id="about" class="section active">
+        <div class="about-content">
+            <h2>About Us</h2>
+            <p>Trash to Treasure is a platform designed to promote sustainability by allowing users to swap unwanted items with others.</p>
+            <img src="https://images.unsplash.com/photo-1583573636246-18b214361ff4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Old Books">
+            <p>Our mission is to combat pollution and overconsumption by making it easier for people to exchange goods they no longer need.</p>
+            <img src="https://images.unsplash.com/photo-1561414927-6d86591d0c4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Recycled Materials">
+            <p>With features like real-time chat, location-based swapping, and user ratings, we ensure a secure and eco-friendly trading experience.</p>
+        </div>
     </div>
+
+    <script>
+        // Ensure animations trigger correctly on load
+        document.addEventListener("DOMContentLoaded", () => {
+            const section = document.getElementById("about");
+            setTimeout(() => section.classList.add("active"), 100);
+        });
+    </script>
 </body>
 </html>
