@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reduce, Reuse, Recycle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            font-size: 36px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .word {
+            color: green;
+            white-space: nowrap;
+            border-right: 2px solid green;
+            overflow: hidden;
+            display: inline-block;
+            width: 0;
+        }
+        .black {
+            color: black;
+            font-size: 36px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes erasing {
+            from { width: 100%; }
+            to { width: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span id="dynamic-word" class="word"></span>
+        <span class="black">For the</span>
+    </div>
+    <div class="black">Sustainability Future</div>
+
+    <script>
+        const words = ["Reduce", "Reuse", "Recycle"];
+        let index = 0;
+        const wordElement = document.getElementById("dynamic-word");
+
+        function typeWord(word, callback) {
+            let i = 0;
+            wordElement.style.borderRight = "2px solid green";
+            function type() {
+                if (i <= word.length) {
+                    wordElement.textContent = word.substring(0, i);
+                    wordElement.style.width = wordElement.textContent.length + 'ch';
+                    i++;
+                    setTimeout(type, 150);
+                } else {
+                    setTimeout(() => eraseWord(callback), 1000);
+                }
+            }
+            type();
+        }
+
+        function eraseWord(callback) {
+            let i = wordElement.textContent.length;
+            function erase() {
+                if (i >= 0) {
+                    wordElement.textContent = wordElement.textContent.substring(0, i);
+                    wordElement.style.width = wordElement.textContent.length + 'ch';
+                    i--;
+                    setTimeout(erase, 100);
+                } else {
+                    callback();
+                }
+            }
+            erase();
+        }
+
+        function cycleWords() {
+            typeWord(words[index], () => {
+                index = (index + 1) % words.length;
+                cycleWords();
+            });
+        }
+
+        cycleWords();
+    </script>
+</body>
+</html>

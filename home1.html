@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #000;
+            color: white;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+        .card {
+            width: 420px;
+            background: grey; /* Default for dark mode */
+            border-radius: 15px;
+            padding: 35px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            transition: background 0.5s ease;
+        }
+        .logo {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            background: white;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .toggle-container {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #444;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .toggle-switch:before {
+            content: '\1F319'; /* Moon icon */
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            font-size: 20px;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+        .toggle-switch.active {
+            background: #4A90E2;
+        }
+        .toggle-switch.active:before {
+            content: '\2600'; /* Sun icon */
+            transform: translateX(30px);
+        }
+        .light-mode {
+            background-color: #fff;
+            color: black;
+        }
+        .light-mode .card {
+            background: #87CEEB; /* Sky blue */
+            color: white;
+        }
+        .light-mode .black {
+            color: black;
+        }
+        /* Animation Section */
+        .animation-container {
+            position: absolute;
+            top: 35%;
+            left: 5%;
+            text-align: left;
+        }
+        .word {
+            color: green;
+            white-space: nowrap;
+            border-right: 2px solid green;
+            overflow: hidden;
+            display: inline-block;
+            width: 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .black {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+        }
+        /* Updated Fonts & Layout */
+        .t-to-t {
+            font-family: cursive;
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: yellow;
+        }
+        .trash-title {
+            font-family: "Georgia", serif;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: rgb(12, 247, 184);
+        }
+        .description {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+        /* Button Styling */
+        .btn {
+            display: inline-block;
+            background-color: #4A90E2;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #357ABD;
+        }
+    </style>
+</head>
+<body>
+    <div class="toggle-container">
+        <div class="toggle-switch" onclick="toggleMode()"></div>
+    </div>
+    
+    <!-- Animation Container -->
+    <div class="animation-container">
+        <span id="dynamic-word" class="word"></span>
+        <span class="black">For the</span>
+        <div class="black">Sustainability Future</div>
+    </div>
+
+    <!-- Main Card -->
+    <div class="card">
+        <img src="vhack.jpg" alt="Logo" class="logo">
+        <h3 class="t-to-t">T to T</h3>
+        <h3 class="trash-title">Trash to Treasure</h3>
+        <p class="description">
+            Trash to Treasure is a platform that empowers users to reduce, reuse, and recycle.</p>
+        <p>Raising or requesting unwanted items, promoting sustainability, and minimizing waste.</p>
+        
+        <!-- Let's Begin Button -->
+        <a href="login1.html" class="btn">Let's Begin</a>
+    </div>
+
+    <script>
+        function toggleMode() {
+            document.body.classList.toggle("light-mode");
+            document.querySelector(".toggle-switch").classList.toggle("active");
+        }
+
+        // Animation Logic
+        const words = ["Reduce", "Reuse", "Recycle"];
+        let index = 0;
+        const wordElement = document.getElementById("dynamic-word");
+
+        function typeWord(word, callback) {
+            let i = 0;
+            wordElement.style.borderRight = "2px solid green";
+            function type() {
+                if (i <= word.length) {
+                    wordElement.textContent = word.substring(0, i);
+                    wordElement.style.width = (wordElement.textContent.length + 1) + 'ch';
+                    i++;
+                    setTimeout(type, 150);
+                } else {
+                    setTimeout(() => eraseWord(callback), 1000);
+                }
+            }
+            type();
+        }
+
+        function eraseWord(callback) {
+            let i = wordElement.textContent.length;
+            function erase() {
+                if (i >= 0) {
+                    wordElement.textContent = wordElement.textContent.substring(0, i);
+                    wordElement.style.width = (wordElement.textContent.length + 1) + 'ch';
+                    i--;
+                    setTimeout(erase, 100);
+                } else {
+                    callback();
+                }
+            }
+            erase();
+        }
+
+        function cycleWords() {
+            typeWord(words[index], () => {
+                index = (index + 1) % words.length;
+                cycleWords();
+            });
+        }
+
+        // Start animation
+        window.onload = cycleWords;
+    </script>
+</body>
+</html>

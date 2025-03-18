@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #000;
+            color: white;
+            overflow: hidden;
+        }
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: -1;
+        }
+        .container {
+            width: 60%;
+            margin: 100px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
+        }
+        h1 {
+            color: red;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        window.onload = function () {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                    "color": { "value": "#ff0000" },
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": 0.5 },
+                    "size": { "value": 3 },
+                    "move": { "enable": true, "speed": 5 }
+                },
+                "interactivity": {
+                    "events": {
+                        "onhover": { "enable": true, "mode": "repulse" }
+                    }
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="container">
+        <h1>About Us</h1>
+        <p>Welcome to our platform! Our goal is to provide a seamless and secure experience for managing blockchain-based health records. 
+        Our system ensures data security, privacy, and interoperability between hospital systems while empowering patients with control over their information.</p>
+    </div>
+</body>
+</html>
